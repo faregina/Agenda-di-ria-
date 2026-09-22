@@ -1,0 +1,42 @@
+# Robô Gerador de Agenda Diária
+
+Esta é a primeira versão do seu robô.
+
+## Jeito mais fácil de testar no seu computador
+
+1. Instale o Python 3.11 ou mais recente.
+2. Descompacte esta pasta.
+3. Abra o Terminal/Prompt de Comando dentro da pasta.
+4. Execute:
+
+   pip install -r requirements.txt
+
+5. Depois execute:
+
+   streamlit run app.py
+
+6. O navegador abrirá a tela do robô.
+
+## O que esta versão faz
+
+- Cria agenda diária anual.
+- Permite escolher A5 ou A4.
+- Permite personalizar o nome.
+- Permite escolher o ano.
+- Permite escolher o primeiro e o último horário.
+- Gera uma página para cada dia do ano.
+- Gera o arquivo final em PDF.
+
+## Próximas melhorias possíveis
+
+- Visual mais bonito e modelos diferentes.
+- Capa personalizada.
+- Página de dados pessoais.
+- Calendário anual e mensal.
+- Lista de aniversários.
+- Controle financeiro.
+- Metas e hábitos.
+- Sábado/domingo em layouts diferentes.
+- Margens específicas para encadernação.
+- Logo da sua marca.
+- Venda automática pela internet.
