@@ -1178,98 +1178,250 @@ def pagina_diaria(
     )
 
     y -= 9 * mm
+    
+            
+        
 
-    for i in range(6):
-        checkbox(
-            pdf,
-            margem,
-            y
-        )
+        
+        
+            
+============================================================
+    # NOVO LAYOUT DA PÁGINA DIÁRIA
+    # Modelo limpo com área de escrita
+    # ============================================================
 
-        linha(
-            pdf,
-            margem + 8 * mm,
-            y + 1 * mm,
-            largura - margem
-        )
+    margem = 14 * mm
 
-        y -= 10 * mm
+    # ------------------------------------------------------------
+    # ÁREA "IMPORTANTE"
+    # ------------------------------------------------------------
 
-    y -= 3 * mm
+    y_importante = y - 20 * mm
 
-    # anotações
     pdf.setFillColor(HexColor(cor))
-    pdf.setFont(fontes["negrito"], 11)
+    pdf.setFont(fontes["negrito"], 10)
 
     pdf.drawString(
         margem,
-        y,
-        "ANOTAÇÕES"
+        y_importante,
+        "Importante:"
     )
 
-    y -= 10 * mm
-
-    while y > 20 * mm:
-        linha(
-            pdf,
-            margem,
-            y,
-            largura - margem,
-            "#D1D1D1"
-        )
-
-        y -= 8 * mm
-
-    pdf.showPage()
-
-
-# =========================================================
-# ANOTAÇÕES
-# =========================================================
-
-def pagina_anotacoes(
-    pdf,
-    largura,
-    altura,
-    cor,
-    fontes,
-    numero=None
-):
-    titulo = "Anotações"
-
-    if numero:
-        titulo += f" — {numero}"
-
-    titulo_pagina(
-        pdf,
-        largura,
-        altura,
-        titulo,
-        cor,
-        fontes["negrito"],
-        19
+    # Caixa suave para anotações importantes
+    pdf.setFillColor(clarear_cor(cor))
+    pdf.roundRect(
+        margem,
+        y_importante - 22 * mm,
+        largura * 0.58,
+        18 * mm,
+        3 * mm,
+        fill=1,
+        stroke=0
     )
 
-    margem = 15 * mm
-    y = altura - 48 * mm
+    # ------------------------------------------------------------
+    # INDICADORES DECORATIVOS
+    # ------------------------------------------------------------
 
-    while y > 20 * mm:
-        linha(
-            pdf,
-            margem,
-            y,
-            largura - margem,
-            "#D0D0D0"
+    raio = 4 * mm
+    inicio_x = largura - margem - 30 * mm
+    circulo_y = y_importante - 10 * mm
+
+    pdf.setFillColor(HexColor(cor))
+
+    for i in range(3):
+        pdf.circle(
+            inicio_x + i * 10 * mm,
+            circulo_y,
+            raio,
+            fill=1,
+            stroke=0
         )
 
-        y -= 8 * mm
+    # Dias da semana pequenos
+    pdf.setFillColor(HexColor("#555555"))
+    pdf.setFont(fontes["normal"], 6)
+
+    dias_curto = ["S", "T", "Q", "Q", "S", "S", "D"]
+
+    texto_dias = "  ".join(dias_curto)
+
+    pdf.drawCentredString(
+        largura - margem - 20 * mm,
+        circulo_y - 9 * mm,
+        texto_dias
+    )
+
+    # ------------------------------------------------------------
+    # ÁREA PRINCIPAL PARA ESCREVER
+    # ------------------------------------------------------------
+
+    inicio_linhas = y_importante - 34 * mm
+    fim_linhas = 57 * mm
+
+    pdf.setStrokeColor(HexColor("#B8B8B8"))
+    pdf.setLineWidth(0.35)
+
+    y_linha = inicio_linhas
+
+    while y_linha > fim_linhas:
+
+        pdf.line(
+            margem,
+            y_linha,
+            largura - margem,
+            y_linha
+        )
+
+        y_linha -= 8 * mm
+
+    # ------------------------------------------------------------
+    # BLOCO INFERIOR — PRIORIDADES
+    # ------------------------------------------------------------
+
+    base_y = 18 * mm
+
+    largura_esquerda = (largura - 3 * margem) / 2
+    largura_direita = largura_esquerda
+
+    pdf.setFillColor(HexColor(cor))
+    pdf.setFont(fontes["negrito"], 9)
+
+    pdf.drawString(
+        margem,
+        base_y + 28 * mm,
+        "Prioridades:"
+    )
+
+    pdf.setFillColor(clarear_cor(cor))
+
+    for i in range(4):
+
+        pdf.roundRect(
+            margem,
+            base_y + (20 - i * 6) * mm,
+            largura_esquerda,
+            4.5 * mm,
+            2 * mm,
+            fill=1,
+            stroke=0
+        )
+
+    # ------------------------------------------------------------
+    # BLOCO INFERIOR — RESUMO DO DIA
+    # ------------------------------------------------------------
+
+    x_resumo = margem * 2 + largura_esquerda
+
+    pdf.setFillColor(HexColor(cor))
+    pdf.setFont(fontes["negrito"], 9)
+
+    pdf.drawString(
+        x_resumo,
+        base_y + 28 * mm,
+        "Resumo do dia:"
+    )
+
+    pdf.setFillColor(clarear_cor(cor))
+
+    pdf.roundRect(
+        x_resumo,
+        base_y,
+        largura_direita,
+        24 * mm,
+        3 * mm,
+        fill=1,
+        stroke=0
+    )
+
+    # ------------------------------------------------------------
+    # PEQUENA DECORAÇÃO NOS CANTOS INFERIORES
+    # Usa a mesma função floral já existente na agenda
+    # ------------------------------------------------------------
 
     decoracao_canto(
         pdf,
         largura,
         altura,
         cor,
-        "direito"
+        "esquerdo"
+    )
+
+    # Finaliza a página diária
+    pdf.showPage()
+            
+        
+
+        
+
+
+
+
+
+
+    
+
+    
+    
+        
+
+    
+
+    
+        
+        
+            
+        
+            
+            
+        
+
+        
+
+    
+
+
+
+
+
+
+
+    
+    
+    
+                                     
+    
+
+    
+        
+
+    
+        
+        
+    
+        
+        
+        
+        
+
+
+    
+
+    
+    
+
+    
+        
+            
+            
+            
+        
+            
+       
+
+     
+
+    
     )
 
     pdf.showPage()
